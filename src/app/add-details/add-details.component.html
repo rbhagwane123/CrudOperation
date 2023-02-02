@@ -1,0 +1,247 @@
+<button
+  type="button"
+  class="btn btn-link"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  data-bs-whatever="@mdo"
+  (click)="addDetails(content)">
+  Register
+</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Person</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="signupForm">
+      <div>
+        <!-- //username -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-control"
+            name="username"
+            [class.is-invalid]="
+              signupForm.get('username').invalid &&
+              signupForm.get('username').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('username').invalid &&
+              signupForm.get('username').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('username').errors?.required"
+              class="text-danger"
+              >Username is required</small
+            >
+          </div>
+        </div>
+
+        <!-- //email -->
+        <div class="form-group">
+          <label for="email">email</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            name="email"
+            [class.is-invalid]="
+              signupForm.get('email').invalid && signupForm.get('email').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('email').invalid && signupForm.get('email').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('email').errors?.required"
+              class="text-danger"
+              >Email is required</small
+            >
+            <small
+              *ngIf="signupForm.get('email').errors?.email"
+              class="text-danger"
+              >Invalid email!..</small
+            >
+          </div>
+        </div>
+
+        <!-- //password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control"
+            name="password"
+            [class.is-invalid]="
+              signupForm.get('password').invalid && signupForm.get('password').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('password').invalid && signupForm.get('password').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('password').errors?.required"
+              class="text-danger"
+              >Password is required</small
+            >
+          </div>
+        </div>
+
+        <!-- //dob -->
+        <div class="form-group">
+          <label for="dob">DOB</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="dob"
+            id="dob"
+            name="dob"
+            [class.is-invalid]="
+              signupForm.get('dob').invalid && signupForm.get('dob').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('dob').invalid && signupForm.get('dob').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('dob').errors?.required"
+              class="text-danger"
+              >DOB is required
+            </small>
+            <small
+              *ngIf="signupForm.get('dob').errors?.dobForbidden"
+              class="text-danger"
+              >Age should be greater than 8
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- /country -->
+      <div>
+        <label for="country">Country</label>
+        <select
+          name="country"
+          class="form-control"
+          formControlName="country"
+          (change)="onCountrySelected()"
+          [class.is-invalid]="
+            signupForm.get('country').invalid &&
+            signupForm.get('country').touched
+          "
+        >
+          <div
+            *ngIf="
+              signupForm.get('country').invalid &&
+              signupForm.get('country').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('country').errors?.required"
+              class="text-danger"
+              >Country selection required
+            </small>
+          </div>
+          <option>Select Countries...</option>
+          <option *ngFor="let country of listcountry" [value]="country.iso2">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- /state -->
+      <div>
+        <label for="state" class="form-label">State</label>
+        <select
+          id="state"
+          class="form-control"
+          name="state"
+          formControlName="state"
+          (change)="onStateSelected()"
+          [class.is-invalid]="
+            signupForm.get('state').invalid && signupForm.get('state').touched
+          "
+        >
+          <div
+            *ngIf="
+              signupForm.get('state').invalid && signupForm.get('state').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('state').errors?.required"
+              class="text-danger"
+              ><p>State selection required</p>
+            </small>
+          </div>
+          <option value="">Select state...</option>
+          <option *ngFor="let state of listState" [value]="state.iso2">
+            {{ state.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- /city -->
+      <div>
+        <label for="city" class="form-label">City</label>
+        <select
+          id="city"
+          class="form-control"
+          formControlName="city"
+          [class.is-invalid]="
+            signupForm.get('city').invalid && signupForm.get('city').touched
+          "
+        >
+          <div
+            *ngIf="
+              signupForm.get('city').invalid && signupForm.get('city').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('city').errors?.required"
+              class="text-danger"
+              ><p>City selection required</p>
+            </small>
+          </div>
+          <option value="">Select city...</option>
+          <option *ngFor="let city of listCity" [value]="city.name">
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <br /><br />
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      [disabled]="signupForm.invalid"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,88 @@
+<div class="d-flex align-items-end flex-column me-4 mt-4">
+  <div class="me-4">
+    <app-upload-doc></app-upload-doc>
+    <app-update-details *ngFor="let item of singleUser" [id]="item._id"></app-update-details>
+  </div>
+</div>
+<div class="container text-center mt-4" *ngFor="let item of singleUser">
+  <!-- username -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>Username</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.name }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- email -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>Email</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.email }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- password -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>Password</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.password }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- dob -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>Date of Birth</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.dob }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- country -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>Country</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.country }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- state -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>State</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.state }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- city -->
+  <div class="row">
+    <div class="col" style="font-weight: bold">
+      <h3>City</h3>
+    </div>
+    <div class="col">
+      <p>{{ item.city }}</p>
+    </div>
+  </div>
+  <hr />
+  <!-- Documnet view -->
+  <div class="row" *ngIf="imgStatus">
+    <div class="col">
+      <h3>Upload document</h3>
+    </div>
+    <div class="col" >
+      <img src="{{ item.document }}" alt="Just Image" style="height: 210px; width: 160px; ">
+    </div>
+  </div>
+
+</div>

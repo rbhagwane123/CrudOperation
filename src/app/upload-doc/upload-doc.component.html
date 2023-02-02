@@ -1,0 +1,68 @@
+<button
+  type="button"
+  class="btn btn-warning me-2"
+  data-bs-toggle="modal"
+  (click)="Startupload(content)"
+  data-bs-target="#exampleModal"
+  data-bs-whatever="@mdo"
+>
+  Upload
+</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload Document</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="uploadForm">
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Select document</label>
+        <input
+          class="form-control"
+          type="file"
+          name="image"
+          (change)="onFileSelect($event)"
+          multiple
+          [class.is-invalid]="
+            uploadForm.get('image').invalid && uploadForm.get('image').touched
+          "
+        />
+        <div><p>allowed format (.jpeg, .png, .pdf) for files</p></div>
+        <div
+          *ngIf="
+            uploadForm.get('image').invalid && uploadForm.get('image').touched
+          "
+        >
+          <small
+            *ngIf="uploadForm.get('image').errors?.required"
+            class="text-danger"
+          >
+            Document is required
+          </small>
+        </div>
+      </div>
+    </form>
+    <div class="row" *ngIf="url">
+      <div class="col">
+        <img [src]="url" style="height: 210px; width: 160px;">
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="onUpload()">
+      Upload
+    </button>
+  </div>
+</ng-template>

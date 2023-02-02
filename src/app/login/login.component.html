@@ -1,0 +1,74 @@
+
+    <form [formGroup]="signupForm">
+      <div>
+        <!-- //email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            name="email"
+            placeholder="Enter email"
+            [class.is-invalid]="
+              signupForm.get('email').invalid && signupForm.get('email').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('email').invalid && signupForm.get('email').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('email').errors?.required"
+              class="text-danger"
+              >Email is required</small
+            >
+            <small
+              *ngIf="signupForm.get('email').errors?.email"
+              class="text-danger"
+              >Invalid email!..</small
+            >
+          </div>
+        </div>
+
+        <!-- //password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control"
+            placeholder="Enter password"
+            name="password"
+            [class.is-invalid]="
+              signupForm.get('password').invalid && signupForm.get('password').touched
+            "
+          />
+          <div
+            *ngIf="
+              signupForm.get('password').invalid && signupForm.get('password').touched
+            "
+          >
+            <small
+              *ngIf="signupForm.get('password').errors?.required"
+              class="text-danger"
+              >Password is required</small
+            >
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col">
+            <button class="btn btn-success" (click)="checkLogin()">Login</button>
+            <!-- <a class="ms-2" href="">Register?</a> -->
+            <app-add-details></app-add-details>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+
